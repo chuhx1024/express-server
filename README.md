@@ -18,3 +18,23 @@ app.listen(8083, () => {
 })
 
 ```
+
+## 项目添加 ESlint 使用 standard 规则
+```sh
+# yarn 
+yarn add eslint -D
+
+# init
+./node_modules/.bin/eslint --init
+
+--->
+? How would you like to use ESLint? (Use arrow keys) 
+  To check syntax only // 只检查语法
+  To check syntax and find problems // 检查语法和发现问题
+> To check syntax, find problems, and enforce code style // 检查语法、发现问题并实施代码样式(此项包含 standard 规则)
+
+? What type of modules does your project use? (Use arrow keys) 
+  JavaScript modules (import/export) // JavaScript模块
+> CommonJS (require/exports) // 因为是 node 项目 所以选此项
+  None of these // 其他
+```
