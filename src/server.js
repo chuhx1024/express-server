@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const app = express()
 const Router = require('./routers')
 app.use(express.urlencoded()) // 请求体参数是: name=tom&pwd=123
@@ -7,6 +8,9 @@ app.use('/', Router)
 
 require('./ws')(app)
 
-app.listen(8975, () => {
-    console.log('Server is running at http://localhost:8975')
+mongoose.connect('mongodb://localhost/express_server_db', { useNewUrlParser: true }).then(() => {
+    console.log('数据库连接成功')
+    app.listen(8975, () => {
+        console.log('Server is running at http://localhost:8975')
+    })
 })

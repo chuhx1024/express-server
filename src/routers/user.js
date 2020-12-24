@@ -1,3 +1,5 @@
+const RoleModel = require('../models/RoleModel')
+
 module.exports = (Router) => {
     Router.post('/api/user/login', (req, res) => {
         const { username, password } = req.body
@@ -32,5 +34,16 @@ module.exports = (Router) => {
                 },
             })
         }
+    })
+
+    // 添加角色
+    Router.post('/api/user/role/add', (req, res) => {
+        const { roleName } = req.body
+        RoleModel.create({ roleName }).then(role => {
+            res.send({
+                status: 0,
+                data: { role },
+            })
+        })
     })
 }
