@@ -17,4 +17,20 @@ module.exports = (Router) => {
             res.send(result)
         }
     })
+    Router.get('/api/user/info', (req, res) => {
+        const { token } = req.query
+        console.log(token)
+        if (token) {
+            res.send({
+                status: 0,
+                data: {
+                    info: {
+                        username: 'admin',
+                        phone: '15512344321',
+                        email: '123@126.com',
+                    },
+                },
+            })
+        }
+    })
 }
