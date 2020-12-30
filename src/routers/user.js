@@ -46,4 +46,13 @@ module.exports = (Router) => {
             })
         })
     })
+
+    // 获取角色列表
+    Router.get('/api/user/role/list', async (req, res) => {
+        const roles = await RoleModel.find()
+        res.send({
+            status: 0,
+            data: roles,
+        })
+    })
 }
