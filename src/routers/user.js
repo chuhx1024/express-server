@@ -75,9 +75,10 @@ module.exports = (Router) => {
     // 获取用户列表
     Router.get('/api/user/list', async (req, res) => {
         const users = await UserModel.find()
+        const roles = await RoleModel.find()
         res.send({
             status: 0,
-            data: users,
+            data: { users, roles },
         })
     })
 
@@ -85,5 +86,31 @@ module.exports = (Router) => {
     Router.post('/api/user/add', (req, res) => {
         const data = req.body
         console.log(data, 90)
+        const { username, password } = data
+        UserModel.findOne({ username }).then(user => {
+            if (user) {
+                res.send({
+                    status: 1,
+                    msg: '此用户已存在',
+                })
+            } else {
+                UserModel.create({ ...data, password: md5(password) }).then(user => {
+                    res.send({
+                        status: 0,
+                        data: user,
+                    })
+                })
+            }
+        })
+    })
+
+    // 删除用户
+    Router.post('/api/user/del', async (req, res) => {
+        const { userId } = req.body
+        console.log(userId)
+        await UserModel.deleteOne({ _id: userId })
+        res.send({
+            status: 0,
+        })
     })
 }
