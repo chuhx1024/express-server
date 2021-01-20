@@ -72,7 +72,18 @@ module.exports = (Router) => {
             })
         })
     })
-    //
+    // 根据角色id 获取 menus
+    Router.get('/api/user/role/oneInfo', (req, res) => {
+        const { id } = req.query
+        console.log(id)
+        RoleModel.findOne({ _id: id }).then(role => {
+            const { menus } = role
+            res.send({
+                status: 0,
+                data: { menus },
+            })
+        })
+    })
 
     // 获取用户列表
     Router.get('/api/user/list', async (req, res) => {
