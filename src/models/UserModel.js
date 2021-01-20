@@ -18,6 +18,7 @@ UserModel.findOne({ username: 'admin' }).then(user => {
         UserModel.create({
             username: 'admin',
             password: md5('123456'),
+            roleId: 'admin',
         }).then(user => {
             console.log('初始化用户: 用户名: "admin" 密码: "123456"')
         })

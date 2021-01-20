@@ -10,7 +10,7 @@ module.exports = (Router) => {
                 const result = {
                     status: 0,
                     data: {
-                        token: 'admin-token',
+                        token: user._id,
                     },
                 }
                 res.send(result)
@@ -27,15 +27,16 @@ module.exports = (Router) => {
         const { token } = req.query
         console.log(token)
         if (token) {
-            res.send({
-                status: 0,
-                data: {
-                    info: {
-                        username: 'admin',
-                        phone: '15512344321',
-                        email: '123@126.com',
-                    },
-                },
+            UserModel.findOne({ _id: token }).then(user => {
+                if (user) {
+                    const result = {
+                        status: 0,
+                        data: {
+                            user,
+                        },
+                    }
+                    res.send(result)
+                }
             })
         }
     })
@@ -71,6 +72,7 @@ module.exports = (Router) => {
             })
         })
     })
+    //
 
     // 获取用户列表
     Router.get('/api/user/list', async (req, res) => {
