@@ -8,4 +8,5 @@ Router.post('/api/login', (req, res) => {
     res.send('Hello World')
 })
 require('./user')(Router)
+require('./echarts')(Router)
 module.exports = Router
